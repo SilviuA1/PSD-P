@@ -2,6 +2,7 @@ import librosa
 import matplotlib.pyplot as plt
 import soundfile as sf
 import numpy as np
+from scipy.signal import get_window
 
 
 class TimeSignal:
@@ -24,12 +25,30 @@ class TimeSignal:
         return abs(np.fft.fft(signal))
 
     @staticmethod
+    def get_fft_of_timeframe(signal, start, end):
+        curr_interval_len = len(signal)
+        start_idx = int(curr_interval_len / 100 * start)
+        end_idx = int(curr_interval_len / 100 * end)
+
+        interval_curr_trimmed = signal[start_idx:end_idx]
+
+        temporary_fft = abs(np.fft.fft(interval_curr_trimmed))
+
+        return temporary_fft
+
+    # ['boxcar', 'hanning', 'hamming', 'blackman', 'blackmanharris']
+    @staticmethod
+    def get_window_by_name(window_name, m):
+        w = get_window(window_name, m)
+        return w
+
+    @staticmethod
     def get_fft_of_intervals(signal_intervals):
         temporary_fft = None
         num_of_intervals = len(signal_intervals)
 
         for interval_idx in range(0, num_of_intervals-1):
-            interval_curr= np.concatenate([signal_intervals[interval_idx], signal_intervals[interval_idx+1]])
+            interval_curr = np.concatenate([signal_intervals[interval_idx], signal_intervals[interval_idx+1]])
             curr_interval_len = len(interval_curr)
             start_idx = int(curr_interval_len/6)
             end_idx = int(curr_interval_len/6*4)
