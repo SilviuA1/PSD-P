@@ -5,12 +5,7 @@ import numpy as np
 from scipy.signal import get_window
 
 
-class TimeSignal:
-    def __init__(self):
-        pass
-
-    def __del__(self):
-        pass
+class SignalProcess:
 
     @staticmethod
     def get_mmm(time_signal):
@@ -21,7 +16,7 @@ class TimeSignal:
         return [maximum, minimum, mean_val]
 
     @staticmethod
-    def get_fft_entirely(signal):
+    def get_fft_entire_signal(signal):
         return abs(np.fft.fft(signal))
 
     @staticmethod
@@ -63,21 +58,21 @@ class TimeSignal:
         return temporary_fft
 
 
-class SoundUtil:
+class Sound:
     num_plot = 0
 
     def __init__(self):
-        SoundUtil.num_plot = 0
+        Sound.num_plot = 0
 
     def __del__(self):
-        SoundUtil.num_plot = 0
+        Sound.num_plot = 0
 
     @staticmethod
-    def export_wav_file(wav_signal, sr):
+    def export_file(wav_signal, sr):
         sf.write('../data/stereo_util.wav', wav_signal, sr[0])
 
     @staticmethod
-    def read_wav_files(wav_files):
+    def read_file(wav_files):
         if not isinstance(wav_files, list):
             wav_files = [wav_files]
         return [librosa.load(f)[0] for f in wav_files]
@@ -89,14 +84,14 @@ class SoundUtil:
         return [librosa.load(f)[1] for f in wav_files]
 
     @staticmethod
-    def plot_sound(sound_to_plot, plot_title):
-        SoundUtil.num_plot = SoundUtil.num_plot + 1
-        plt.figure(SoundUtil.num_plot)
+    def plot_signal(sound_to_plot, plot_title):
+        Sound.num_plot = Sound.num_plot + 1
+        plt.figure(Sound.num_plot)
         plt.title(plot_title)
         plt.plot(sound_to_plot)
 
     @staticmethod
-    def split_sound_in_intervals(working_sound, num_of_intervals):
+    def get_intervals(working_sound, num_of_intervals):
         max_len = len(working_sound)
         interval_len = int(max_len / num_of_intervals)
 
@@ -113,7 +108,7 @@ class SoundUtil:
         plt.show()
 
     @staticmethod
-    def get_util_part_of_sound(wav_sound):
+    def extract_util_part_of_signal(wav_sound):
         full_content = sum(abs(wav_sound))
         sound_len = len(wav_sound)
         step = int(sound_len / 40)

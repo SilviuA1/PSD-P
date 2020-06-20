@@ -7,42 +7,49 @@ path_to_audio = glob.glob('./../data/*')[0]
 
 if __name__ == '__main__':
     print("The file we are working on is:" + str(path_to_audio))
-    working_sound = SoundUtil.read_wav_files(path_to_audio)
-    working_sound = working_sound[0]
-    wav_rate_of_sound = SoundUtil.get_wav_rate(path_to_audio)
+    my_signal = Sound.read_file(path_to_audio)
+    my_signal = my_signal[0]
+    wav_rate_of_sound = Sound.get_wav_rate(path_to_audio)
 
     # SoundUtil.plot_sound(working_sound, "Original sound ...")
-    working_sound = SoundUtil.get_util_part_of_sound(working_sound)
+    my_signal = Sound.extract_util_part_of_signal(my_signal)
     # SoundUtil.plot_sound(working_sound, "Util sound ...")
 
-    print(TimeSignal.get_mmm(working_sound))
+    print(SignalProcess.get_mmm(my_signal))
 
     # SoundUtil.export_wav_file(working_sound, wav_rate_of_sound)
 
-    fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound)
-    SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound")
+    fft_of_signal = SignalProcess.get_fft_entire_signal(my_signal)
+    Sound.plot_signal(fft_of_signal, "FFT - Parte utila")
 
-    intervals_working_sound = SoundUtil.split_sound_in_intervals(working_sound, 10)
+    signal_intervals = Sound.get_intervals(my_signal, 10)
 
-    fft_of_working_signal_intervals = TimeSignal.get_fft_of_intervals(intervals_working_sound)
-    # SoundUtil.plot_sound(fft_of_working_signal_intervals, "FFT on intervals")
+    fft_of_intervals_signal = SignalProcess.get_fft_of_intervals(signal_intervals)
+    # SoundUtil.plot_sound(fft_of_intervals_signal, "FFT on intervals")
 
-    fft_of_working_signal_timeframe = TimeSignal.get_fft_of_timeframe(working_sound, 20, 80)
-    # SoundUtil.plot_sound(fft_of_working_signal_timeframe, "FFT on 20% to 80%")
+    fft_of_signal_timeframe = SignalProcess.get_fft_of_timeframe(my_signal, 20, 80)
+    # SoundUtil.plot_sound(fft_of_signal_timeframe, "FFT on 20% to 80%")
 
-    to_filter_window = TimeSignal.get_window_by_name('hanning', len(working_sound))
-    SoundUtil.plot_sound(to_filter_window, "Hanning window")
+    hanning_window = SignalProcess.get_window_by_name('hanning', len(my_signal))
+    Sound.plot_signal(hanning_window, "Fereastra Hanning")
 
-    working_sound_filtred = working_sound * to_filter_window
-    fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound_filtred)
-    SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred hanning")
+    working_sound_filtred = my_signal * hanning_window
+    fft_of_working_signal = SignalProcess.get_fft_entire_signal(working_sound_filtred)
+    Sound.plot_signal(fft_of_working_signal, "FFT - Fereastra Hanning")
 
-    to_filter_window = TimeSignal.get_window_by_name('blackmanharris', len(working_sound))
-    SoundUtil.plot_sound(to_filter_window, "blackmanharris window")
+    to_filter_window = SignalProcess.get_window_by_name('blackmanharris', len(my_signal))
+    Sound.plot_signal(to_filter_window, " Fereastra Blackmanharris ")
 
-    working_sound_filtred = working_sound * to_filter_window
-    fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound_filtred)
-    SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred blackmanharris")
+    working_sound_filtred = my_signal * to_filter_window
+    fft_of_working_signal = SignalProcess.get_fft_entire_signal(working_sound_filtred)
+    Sound.plot_signal(fft_of_working_signal, "FFT - Fereastra Blackmanharris")
+
+    to_filter_window = SignalProcess.get_window_by_name('hamming', len(my_signal))
+    Sound.plot_signal(to_filter_window, " Fereastra Hamming ")
+
+    working_sound_filtred = my_signal * to_filter_window
+    fft_of_working_signal = SignalProcess.get_fft_entire_signal(working_sound_filtred)
+    Sound.plot_signal(fft_of_working_signal, "FFT - Fereastra Hamming")
 
 
-SoundUtil.show_plots()
+Sound.show_plots()
