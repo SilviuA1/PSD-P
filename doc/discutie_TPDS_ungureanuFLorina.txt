@@ -1,0 +1,29 @@
+sa luam o parte din semnal, si sa facem un fisier WAV mai mic, care sa fie utilizat mai departe
+
+valorile extreme: media si dispersia
+
+2) trendul ... SKIP !
+3) SKIP
+
+4 - facem ferestre de timp
+  - ne plimbam cu fereastra pe esantioanele noastre
+  - la sf fisierul fereastra e mai mare decat nr de esantioane, facem 0 in acel punct
+
+5 - linia spectrala maxima
+  - linia spectrala din vecinatate
+  - 
+  
+5.4 skip
+6   deja facut in pct asta
+
+
+livrate:
+fisierul initial
+fisierul cu partea utila (.wav)
+script`ul python
+un document cu capturi de ecran
+
+
+###################################################################################################
+
+determinarea trendului: In matlab se face cu POLIFIT si se returneaza cu POLIVAL

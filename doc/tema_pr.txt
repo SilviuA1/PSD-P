@@ -1,0 +1,38 @@
+TPDS 2019-2020
+
+              TEMA  PROIECTULUI
+
+
+Se da o inregistrare a unui semnal esantionat sub forma unui fisier wav.
+Se cere:
+0. Sa se extraga partea utila a semnalului; aceasta va fi folosita in continuare  (V)
+
+1. Sa se determine valorile extreme, media si dispersia;
+
+2. Sa se determine trendul ( cu o functie polinomiala );
+
+3. Dupa extragerea trendului sa se determine media si dispersia si sa se 
+   compare cu 1.
+
+4. Sa se determine spectrul de amplitudine al semnalului dupa cum urmeaza:
+
+4.1. Prin aplicarea transformatei Fourier pentru toate esantioanele disponibile;
+4.2. Prin aplicarea transformatei Fourier pe serii de esantioane;
+4.3. Sa se aplice diverse ferestre temporale si sa se repete 4.1. si 4.2. pentru
+     fiecare tip de fereastra ales;
+4.4. Concluzii privind spectrul semnalului;
+
+5. Considerand frecventa corespunzatoare liniei spectrale de amplitudine maxima
+   si o alta linie spectrala de amplitudine mai mica din vecinatatea primeia sa
+   se proiecteze cate un filtru numeric trece banda pentru izolarea celor doua
+   linii spectrale.
+
+5.1. Implementare software a filtrelor in MATLAB - trei tipuri de filtre la
+     alegere;
+5.2. Verificare filtre in privinta stabilitatii;
+5.3. Fitrarea semnalui ; Spectrul semnalului filtrat
+
+5.4. Schema bloc de implementare hardware pentru filtrul cel mai eficient;
+
+6. Comparatie intre spectrul semnalului filtrat cu filtrele de la 5. si
+   spectrul de la 4.
