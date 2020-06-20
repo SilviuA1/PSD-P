@@ -13,16 +13,16 @@ if __name__ == '__main__':
 
     # SoundUtil.plot_sound(working_sound, "Original sound ...")
     working_sound = SoundUtil.get_util_part_of_sound(working_sound)
-    # SoundUtil.plot_sound(working_sound, "Util sound ...")
+    SoundUtil.plot_sound(working_sound, "Util sound ...")
 
     print(TimeSignal.get_mmm(working_sound))
 
     # SoundUtil.export_wav_file(working_sound, wav_rate_of_sound)
 
+    intervals_working_sound = SoundUtil.split_sound_in_intervals(working_sound, 10)
+
     fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound)
     SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound")
-
-    intervals_working_sound = SoundUtil.split_sound_in_intervals(working_sound, 10)
 
     fft_of_working_signal_intervals = TimeSignal.get_fft_of_intervals(intervals_working_sound)
     # SoundUtil.plot_sound(fft_of_working_signal_intervals, "FFT on intervals")
@@ -31,18 +31,24 @@ if __name__ == '__main__':
     # SoundUtil.plot_sound(fft_of_working_signal_timeframe, "FFT on 20% to 80%")
 
     to_filter_window = TimeSignal.get_window_by_name('hanning', len(working_sound))
-    SoundUtil.plot_sound(to_filter_window, "Hanning window")
+    # SoundUtil.plot_sound(to_filter_window, "Hanning window")
 
     working_sound_filtred = working_sound * to_filter_window
     fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound_filtred)
-    SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred hanning")
+    # SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred hanning")
 
     to_filter_window = TimeSignal.get_window_by_name('blackmanharris', len(working_sound))
-    SoundUtil.plot_sound(to_filter_window, "blackmanharris window")
+    # SoundUtil.plot_sound(to_filter_window, "Blackmanharris window")
 
     working_sound_filtred = working_sound * to_filter_window
     fft_of_working_signal = TimeSignal.get_fft_entirely(working_sound_filtred)
-    SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred blackmanharris")
+    # SoundUtil.plot_sound(fft_of_working_signal, "FFT of working sound filtred blackmanharris")
+
+    y = butter_bandpass_filter(working_sound, 500, 1150, wav_rate_of_sound[0], order=6)
+    SoundUtil.plot_sound(y, "band pass")
+
+    fft_of_working_filtered = TimeSignal.get_fft_entirely(y)
+    SoundUtil.plot_sound(fft_of_working_filtered, "Filtered sound")
 
 
 SoundUtil.show_plots()

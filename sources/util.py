@@ -3,6 +3,22 @@ import matplotlib.pyplot as plt
 import soundfile as sf
 import numpy as np
 from scipy.signal import get_window
+from scipy import signal as sci_sig
+from scipy.signal import butter, lfilter
+
+
+def butter_bandpass(lowcut, highcut, fs, order=5):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
+
+
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    y = lfilter(b, a, data)
+    return y
 
 
 class TimeSignal:
@@ -13,12 +29,17 @@ class TimeSignal:
         pass
 
     @staticmethod
+    def apply_filter(time_signal):
+        pass
+
+    @staticmethod
     def get_mmm(time_signal):
         maximum = max(time_signal)
         minimum = min(time_signal)
         mean_val = sum(time_signal)/len(time_signal)
+        std_dev = np.std(time_signal)
 
-        return [maximum, minimum, mean_val]
+        return [maximum, minimum, mean_val, std_dev]
 
     @staticmethod
     def get_fft_entirely(signal):
